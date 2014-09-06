@@ -5,15 +5,14 @@ var libxmljs = require('libxmljs');
 
 var config = require('../config');
 
-var oauthTokenSecret = config.secret; 
+var oauthTokenSecret = config.secret;
 var oauthToken = config.authToken;
 var oauthVerifier = config.id;
 
-
 module.exports = {
     getNotes: function(req, res, next) {
-        var query = req.params.name; 
-        var token = req.params.token; 
+        var query = req.params.name;
+        var token = req.params.token;
         var client = new Evernote.Client({
             sandbox: true,
             token: oauthToken
@@ -26,37 +25,33 @@ module.exports = {
                         if (notes) {
                             fns = [];
                             var output = {
-				due: [],
-   				not_due: []
-};
+                                due: [],
+                                not_due: []
+                            };
                             cb = function() {
                                 res.send(output);
                             };
                             _.each(notes.notes, function(note) {
-                               
                                 fns.push(function(done) {
                                     noteStore.getNote(oauthToken, note.guid, true, true, true, true, function(err, data) {
                                         var parsed = libxmljs.parseXml(data.content).root().text();
                                         if (note.notebookGuid == notebook.guid) {
-					    output.due.push({
-						front: note.title,
-						back: parsed
-					    });
-					}
+                                            output.due.push({
+                                                front: note.title,
+                                                back: parsed
+                                            });
+                                        }
                                         done();
                                     });
                                 });
                             });
-                            async.parallel(fns,cb);
+                            async.parallel(fns, cb);
                         } else {
                             console.log('something is wrong');
                         }
                     });
-                    
                 }
-                
             });
         });
-   }
+    }
 };
-

@@ -3,7 +3,7 @@
  */
 
 module.exports = function(app){
-    var note_control = require('./app/controllers/note_control');
+    var card_control = require('./app/controllers/card_control');
 
-    app.get('/', note_control.index);
+    app.get('/', card_control.index);
 };

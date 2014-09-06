@@ -30,6 +30,8 @@ app.set('view engine', 'jade');
 
 //Routes
 app.get('/evernote/:token/:name', notes.getNotes);
+app.post('/evernote/add', notes.addNote);
+app.post('/evernote/update', notes.updateNote);
 
 //server
 var server = http.listen(1000, function() {

@@ -1,0 +1,29 @@
+{
+    "name": "expressApp",
+    "description": "evernote_hackathon",
+    "scripts": {
+        "test": "./node_modules/mocha/bin/mocha"
+    },
+    "dependencies": {
+        "underscore": "*",
+        "step": "*",
+        "request": "*",
+        "express": "*",
+        "moment": "*",
+        "d3": "*",
+        "jade": "*",
+        "redis": "*",
+        "jquery": "*",
+        "request": "*",
+        "body-parser": "*",
+        "path": "*",
+        "evernote": "*"
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "should": "*",
+        "chai": "*",
+        "expect": "*",
+        "browserify": "*"
+    }
+}

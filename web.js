@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var _ = require('underscore');
 var request = require('request');
 var url = require('url');
+var cors = require('cors');
 
 var notes = require('./routes/getNotes');
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 app.use(bodyParser.json());
+app.use(cors());
 
 // In order to track sessions and cookies
 app.use(cookieParser('JBai23'));
@@ -27,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'jade');
 
 //Routes
-app.get('/evernote/:token', notes.getNotes);
+app.get('/evernote/:token/:name', notes.getNotes);
 
 //server
 var server = http.listen(1000, function() {

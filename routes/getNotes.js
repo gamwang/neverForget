@@ -12,10 +12,9 @@ var oauthVerifier = config.id;
 
 module.exports = {
     getNotes: function(req, res, next) {
-        var query = req.body.url || 'dev00'; 
+        var query = req.params.name; 
+        var token = req.params.token; 
         var client = new Evernote.Client({
-            //consumerKey: oauthVerifier,
-            //consumerSecret: oauthTokenSecret,
             sandbox: true,
             token: oauthToken
         });
@@ -27,8 +26,8 @@ module.exports = {
                         if (notes) {
                             fns = [];
                             var output = {
-				due: {},
-   				not_due: {}
+				due: [],
+   				not_due: []
 };
                             cb = function() {
                                 res.send(output);
@@ -39,7 +38,10 @@ module.exports = {
                                     noteStore.getNote(oauthToken, note.guid, true, true, true, true, function(err, data) {
                                         var parsed = libxmljs.parseXml(data.content).root().text();
                                         if (note.notebookGuid == notebook.guid) {
-					    output.due[note.title] = parsed;
+					    output.due.push({
+						front: note.title,
+						back: parsed
+					    });
 					}
                                         done();
                                     });

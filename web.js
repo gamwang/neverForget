@@ -3,7 +3,6 @@ var $ = require('jquery');
 var bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var _ = require('underscore');
 var request = require('request');
 var url = require('url');
@@ -28,9 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'jade');
 
 //Routes
-app.get('/', notes.getNotes);
+app.get('/evernote', notes.getNotes);
 
 //server
-var server = http.listen(3000, function() {
+var server = http.listen(1000, function() {
     console.log('Listening on port %d', server.address().port);
 });

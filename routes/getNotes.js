@@ -26,7 +26,10 @@ module.exports = {
                     noteStore.findNotes(oauthToken, notebook, 0, 1000, function(err, notes) {
                         if (notes) {
                             fns = [];
-                            var output = {};
+                            var output = {
+				due: {},
+   				not_due: {}
+};
                             cb = function() {
                                 res.send(output);
                             };
@@ -36,7 +39,7 @@ module.exports = {
                                     noteStore.getNote(oauthToken, note.guid, true, true, true, true, function(err, data) {
                                         var parsed = libxmljs.parseXml(data.content).root().text();
 
-                                        output[note.title] = parsed;
+                                        output.due[note.title] = parsed;
                                         
                                         done();
                                     });

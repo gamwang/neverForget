@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'jade');
 
 //Routes
-app.get('/evernote', notes.getNotes);
+app.get('/evernote/:token', notes.getNotes);
 
 //server
 var server = http.listen(1000, function() {

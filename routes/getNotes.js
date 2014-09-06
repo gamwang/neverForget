@@ -14,8 +14,8 @@ module.exports = {
     getNotes: function(req, res, next) {
         var query = req.body.url || 'dev00'; 
         var client = new Evernote.Client({
-            consumerKey: oauthVerifier,
-            consumerSecret: oauthTokenSecret,
+            //consumerKey: oauthVerifier,
+            //consumerSecret: oauthTokenSecret,
             sandbox: true,
             token: oauthToken
         });
@@ -38,9 +38,9 @@ module.exports = {
                                 fns.push(function(done) {
                                     noteStore.getNote(oauthToken, note.guid, true, true, true, true, function(err, data) {
                                         var parsed = libxmljs.parseXml(data.content).root().text();
-
-                                        output.due[note.title] = parsed;
-                                        
+                                        if (note.notebookGuid == notebook.guid) {
+					    output.due[note.title] = parsed;
+					}
                                         done();
                                     });
                                 });

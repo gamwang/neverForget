@@ -1,3 +1,5 @@
+var Evernote = require('evernote').Evernote;
+
 module.exports = function makeNote(noteStore, noteTitle, noteBody, parentNotebook, callback) {
  
   var nBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

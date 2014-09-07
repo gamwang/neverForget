@@ -20,7 +20,7 @@ var databaseRunning = false;
 
 var connectToDatabase = function(){
     if (!databaseRunning) {
-        mongoose.connect("mongodb://localhost/test");
+        mongoose.connect("mongodb://localhost/dev00");
         mongoose.connection.on("error", console.error.bind("Connection Failed: "));
         mongoose.connection.once("open", function () {
             console.log("[Database] Connection Success!")

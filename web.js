@@ -16,7 +16,7 @@ var http = require('http').Server(app);
 // In order to track of req's body. ;)
 app.use(bodyParser.urlencoded({
     extended: false
-}))
+}));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -34,6 +34,6 @@ app.post('/evernote/add', notes.addNote);
 app.post('/evernote/update', notes.updateNote);
 
 //server
-var server = http.listen(1000, function() {
+var server = http.listen(11000, function() {
     console.log('Listening on port %d', server.address().port);
 });

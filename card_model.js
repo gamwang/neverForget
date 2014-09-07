@@ -90,8 +90,16 @@ exports.getAllCards = function(_id, callback){
         var due = [];
         var not_due = [];
         for (var i = 0; i < cards.length; i++){
-            if (cards[i].NextDate < today) due.push(cards[i]);
-            else not_due.push(cards[i]);
+           var card_obj = {
+                front: cards[i].front,
+                back: cards[i].back,
+                EF: cards[i].EF
+            };
+            if (cards[i].NextDate < today) {
+                due.push(card_obj);
+            } else {
+                not_due.push(card_obj);
+            } 
         }
         var result = {due: due, not_due: not_due};
         if (callback) callback(result);
@@ -101,13 +109,15 @@ exports.getAllCards = function(_id, callback){
 exports.updateCard = function(_id, _front, score, next){
     connectToDatabase();
     cardModel.find({ID:_id, front: _front}, function(err, card){
+	console.log(err);
         console.log(card);
         console.log("[Database] The above card is found");
-        updateCardWithoutDB(card[0]);
+        var card_obj = card[0];
+        updateCardWithoutDB(card_obj, score);
         cardModel.remove({ID:_id, front: _front}, function(err){
             if (err) console.error(err);
             console.log("[Database] Old card removed");
-            cardModel.create(card, function(err, card){
+            cardModel.create(card_obj, function(err, card){
                 if (err) console.error(err);
                 console.log(card);
                 console.log("[Database] Updated card is saved!");

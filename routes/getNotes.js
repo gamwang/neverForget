@@ -11,6 +11,12 @@ var oauthTokenSecret = config.secret;
 var oauthToken = config.authToken;
 var oauthVerifier = config.id;
 
+function normalized_score(score) {
+    if (score == 1) return 0;
+    if (score == 2) return 3;
+    else return 5;
+}
+
 function getGuid(token, title, cb) {
     var client = new Evernote.Client({
         sandbox: true,
@@ -98,7 +104,7 @@ module.exports = {
         var body = req.body;
         var user_id = body.id;
         var front = body.front;
-        var score = body.score;
+        var score = normalized_score(body.score);
         var token = body.token;
 
         // connect db here 

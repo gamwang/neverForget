@@ -6,8 +6,8 @@ var mongoose = require("mongoose");
 
 var cardSchema = mongoose.Schema({
     ID: String,
-    Front: String,
-    Back: String,
+    front: String,
+    back: String,
     NextDate: Date,
     PrevDate: Date,
     Interval: Number,
@@ -100,11 +100,11 @@ exports.getAllCards = function(_id, callback){
 
 exports.updateCard = function(_id, _front, score, next){
     connectToDatabase();
-    cardModel.find({ID:_id, Front: _front}, function(err, card){
+    cardModel.find({ID:_id, front: _front}, function(err, card){
         console.log(card);
         console.log("[Database] The above card is found");
         updateCardWithoutDB(card[0]);
-        cardModel.remove({ID:_id, Front: _front}, function(err){
+        cardModel.remove({ID:_id, front: _front}, function(err){
             if (err) console.error(err);
             console.log("[Database] Old card removed");
             cardModel.create(card, function(err, card){
@@ -124,8 +124,8 @@ exports.addCard = function(_front, _back, _id, next){
      * output: return a card object with default attributes
      * Attributes of a card object
      *   {
-     *       Front: String,
-     *       Back: String,
+     *       front: String,
+     *       back: String,
      *       NextDate: Date,
      *       PrevDate: Date,
      *       Interval: Number,
@@ -139,8 +139,8 @@ exports.addCard = function(_front, _back, _id, next){
 
     var card = {
         ID: _id,
-        Front: _front,
-        Back: _back,
+        front: _front,
+        back: _back,
         NextDate: today,
         PrevDate: today,
         Interval: 0,
